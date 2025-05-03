@@ -3,21 +3,48 @@ package com.example.jwtauth.user;
 
 import com.example.jwtauth.statusenum.Role;
 import com.example.jwtauth.statusenum.VisaStatus;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "all_visa_status")
+import java.time.LocalDateTime;
 
+@Document(collection = "gmailback")
 public class User {
     @Id
     private String id;
+    private String name;
+    private String surname;
     private String username;
     private String password;
     private String email;
-    private Integer price;
-    private VisaStatus status;
-    private String otp;
-    private boolean isVerified=false;
+    private Role role;
+    @CreatedDate
+    private LocalDateTime createdDate;
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+
     public Role getRole() {
         return role;
     }
@@ -26,22 +53,7 @@ public class User {
         this.role = role;
     }
 
-    private Role role;
-    public VisaStatus getStatus() {
-        return status;
-    }
 
-    public void setStatus(VisaStatus status) {
-        this.status = status;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
 
     public String getEmail() {
         return email;
@@ -52,23 +64,9 @@ public class User {
     }
 
 
-    public String getOtp() {
-        return otp;
-    }
-
-    public void setOtp(String otp) {
-        this.otp = otp;
-    }
 
 
 
-    public boolean isVerified() {
-        return isVerified;
-    }
-
-    public void setVerified(boolean verified) {
-        isVerified = verified;
-    }
     public String getId() {
         return id;
     }

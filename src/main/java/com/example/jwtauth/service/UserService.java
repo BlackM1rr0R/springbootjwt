@@ -23,14 +23,12 @@ public class UserService {
         User user = userRepository.findByEmail(incomingUser.getEmail());
         if (user != null) {
             try {
-                user.setStatus(VisaStatus.valueOf(incomingUser.getStatus().name()));
-                user.setPrice(incomingUser.getPrice());
                 user.setEmail(incomingUser.getEmail());
                 user.setUsername(incomingUser.getUsername());
                 user.setRole(incomingUser.getRole());
                 return userRepository.save(user);
             } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Geçersiz status değeri: " + incomingUser.getStatus());
+                throw new RuntimeException("Geçersiz status değeri: ");
             }
         }
         return null;
@@ -53,10 +51,9 @@ public class UserService {
         List<User> users = userRepository.findAll();
         List<User> updatedUsers = new ArrayList<>();
         for(User user : users) {
-            if(user.getPrice()==null){
-                user.setPrice(0);
+
                 updatedUsers.add(userRepository.save(user));
-            }
+
         }
         return updatedUsers;
     }

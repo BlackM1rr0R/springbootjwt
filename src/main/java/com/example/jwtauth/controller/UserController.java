@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-@CrossOrigin(origins = "http://10.0.2.2")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,10 +28,6 @@ public class UserController {
             response.put("id", user.getId());
             response.put("username", user.getUsername());
             response.put("email", user.getEmail());
-            response.put("price", user.getPrice());
-            if (user.getStatus() != null) {
-                response.put("status", user.getStatus());
-            }
             return response;
         }
         return Collections.emptyMap();
@@ -65,10 +61,6 @@ public class UserController {
             response.put("id", user.getId());
             response.put("username", user.getUsername());
             response.put("email", user.getEmail());
-            response.put("price", user.getPrice());
-            if (user.getStatus() == null) {
-                response.put("status", user.getStatus());
-            }
             return response;
         }
         return Collections.emptyMap();
