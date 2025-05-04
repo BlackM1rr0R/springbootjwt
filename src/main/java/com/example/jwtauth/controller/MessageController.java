@@ -1,5 +1,6 @@
 package com.example.jwtauth.controller;
 
+import com.example.jwtauth.dtos.MessageIdRequest;
 import com.example.jwtauth.jwtutil.JwtUtil;
 import com.example.jwtauth.service.MessageService;
 import com.example.jwtauth.user.Message;
@@ -57,6 +58,12 @@ public class MessageController {
     public List<Message> getStarred(@RequestHeader("Authorization") String authHeader) {
         String email = extractEmailFromHeader(authHeader);
         return messageService.getStarred(email);
+    }
+    @PostMapping("/star")
+    public void starMessage(@RequestBody MessageIdRequest request, @RequestHeader("Authorization") String authHeader){
+
+    String email = extractEmailFromHeader(authHeader);
+        messageService.starMessage(email, request.getMessageId());
     }
 
     @GetMapping("/drafts")
