@@ -55,12 +55,14 @@ public class MessageService {
     public void starMessage(String email, String messageId) {
         Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new RuntimeException("Mesaj bulunamadı"));
-        if (message.getReceiverEmail().equals(email)) {
-            message.setStarred(true);
+
+        if (message.getReceiverEmail().equals(email) || message.getSenderEmail().equals(email)) {
+            message.setStarred(!message.isStarred());
             messageRepository.save(message);
         } else {
             throw new RuntimeException("Bu mesaj size ait değil");
         }
     }
+
 
 }

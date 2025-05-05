@@ -61,7 +61,6 @@ public class MessageController {
     }
     @PostMapping("/star")
     public void starMessage(@RequestBody MessageIdRequest request, @RequestHeader("Authorization") String authHeader){
-
     String email = extractEmailFromHeader(authHeader);
         messageService.starMessage(email, request.getMessageId());
     }
