@@ -6,6 +6,7 @@ import com.example.jwtauth.service.MessageService;
 import com.example.jwtauth.user.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -70,6 +71,13 @@ public class MessageController {
         String email = extractEmailFromHeader(authHeader);
         return messageService.getDrafts(email);
     }
+    @PostMapping("/draft")
+    public ResponseEntity<Message> saveAsDraft(@RequestBody Message message,
+                                               @RequestHeader("Authorization") String authHeader) {
+        String email = extractEmailFromHeader(authHeader);
+        Message draft = messageService.saveAsDraft(message, email);
+        return ResponseEntity.ok(draft);
+    }
 
     @GetMapping("/trash")
     public List<Message> getTrash(@RequestHeader("Authorization") String authHeader) {
@@ -85,6 +93,16 @@ public class MessageController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         return messageService.toggleStart(id);
+    }
+    @GetMapping("/snoozed")
+    public List<Message> getSnoozed(@RequestHeader("Authorization") String authHeader) {
+        String email = extractEmailFromHeader(authHeader);
+        return messageService.getSnoozed(email);
+    }
+    @PostMapping("/snooze")
+    public void snoozeMessage(@RequestBody MessageIdRequest request, @RequestHeader("Authorization") String authHeader) {
+        String email = extractEmailFromHeader(authHeader);
+        messageService.snoozeMessage(email, request.getMessageId());
     }
 }
 

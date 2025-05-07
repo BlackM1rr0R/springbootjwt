@@ -65,4 +65,27 @@ public class MessageService {
     }
 
 
+    public List<Message> getSnoozed(String email) {
+        return messageRepository.findByReceiverEmailAndSnoozedTrue(email);
+    }
+
+    public void snoozeMessage(String email, String messageId) {
+        Message message = getMessageById(messageId);
+        if (!message.getReceiverEmail().equals(email)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        message.setSnoozed(true);
+        messageRepository.save(message);
+    }
+
+    public Message saveAsDraft(Message message, String email) {
+        message.setSenderEmail(email);
+        message.setSentAt(LocalDateTime.now());
+        message.setReceiverEmail(email);
+        message.setDraft(true);
+        message.setTrashed(false);
+        message.setSnoozed(false);
+        message.setStarred(false);
+        return messageRepository.save(message);
+    }
 }

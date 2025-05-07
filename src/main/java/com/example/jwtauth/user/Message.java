@@ -15,6 +15,7 @@ public class Message {
     private String content;
     private LocalDateTime sentAt;
     private boolean isStarred=false;
+    private boolean snoozed=false;
     private boolean isDraft=false;
     private boolean isTrashed=false;
     public boolean isStarred() {
@@ -23,6 +24,13 @@ public class Message {
 
     public void setStarred(boolean starred) {
         isStarred = starred;
+    }
+    public boolean isSnoozed() {
+        return snoozed;
+    }
+
+    public void setSnoozed(boolean snoozed) {
+        this.snoozed = snoozed;
     }
 
     public boolean isDraft() {

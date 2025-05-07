@@ -18,4 +18,6 @@ public interface MessageRepository extends MongoRepository<Message, String> {
     List<Message> findByReceiverEmailAndIsTrashedTrue(String receiverEmail);
 
     List<Message> findByReceiverEmailAndIsDraftFalseAndIsTrashedFalse(String receiverEmail);
+
+    List<Message> findByReceiverEmailAndSnoozedTrue(String email);
 }
