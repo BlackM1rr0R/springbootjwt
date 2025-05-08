@@ -104,5 +104,10 @@ public class MessageController {
         String email = extractEmailFromHeader(authHeader);
         messageService.snoozeMessage(email, request.getMessageId());
     }
+    @DeleteMapping("/delete")
+    public void deleteMessage(@RequestBody MessageIdRequest request, @RequestHeader("Authorization") String authHeader) {
+        String email =extractEmailFromHeader(authHeader);
+        messageService.deleteMessage(email,request.getMessageId());
+    }
 }
 

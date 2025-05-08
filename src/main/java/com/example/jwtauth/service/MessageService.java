@@ -88,4 +88,13 @@ public class MessageService {
         message.setStarred(false);
         return messageRepository.save(message);
     }
+
+    public void deleteMessage(String email, String messageId) {
+        Message message = getMessageById(messageId);
+        if (!message.getReceiverEmail().equals(email)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        message.setTrashed(true);
+        messageRepository.save(message);
+    }
 }
